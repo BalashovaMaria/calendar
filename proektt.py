@@ -72,9 +72,8 @@ def time(x):
     pilltime.grid(row=2, column=1)
     donebutton = Checkbutton(x)
     donebutton.grid(row=2, column=2)
-    plus = tk.Button(x, text='+', command = plusfunction)
+    plus = tk.Button(x, text='+')
     plus.grid(row=2, column=3)
-def plusfunction(w):
 
 prew_button = Button(root, text = '<', command = prew)
 prew_button.grid(row=0, column=0, sticky='nsew')
