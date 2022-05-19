@@ -4,7 +4,8 @@ import datetime
 import tkinter as tk
 root = tk.Tk()
 root.title('Medication calendar')
-photo = tk.PhotoImage(file ='pill.png')
+photo_soz = Image.open("pill.png")
+photo = ImageTk.PhotoImage(photo_soz)
 root.iconphoto(False, photo)
 days = []
 now = datetime.datetime.now()
