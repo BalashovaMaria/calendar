@@ -26,7 +26,9 @@ def next():
         month = 1
         year += 1
     fill()
+    
 def fill():
+    ''',,заполнение,, создание календаря'''
     info_label['text'] = calendar.month_name[month] + ', ' + str(year)
     month_days = calendar.monthrange(year, month)[1]
     if month == 1:
@@ -50,16 +52,16 @@ def fill():
         days[week_day + month_days + n]['fg'] = 'gray'
         days[week_day + month_days + n]['background'] = '#f3f3f3'
 
-'''добавление нового окна после нажимания на дату'''        
 def new_win():
+    '''добавление нового окна после нажимания на дату'''   
     newWindow = tk.Toplevel(root)
     newWindow.title('Medication Data')
     newWindow.iconphoto(False, photo)
     newWindow.geometry(f"300x400")
     interface(newWindow)
     
-'''ячейки в новом окне'''
 def interface(y):
+    '''ячейки в новом окне'''
     addmed = tk.Button(y, text = 'Add medication', command= lambda: [addmd(), counter()])
     addmed.grid(row=0, column=4)
     def namefunc(rw1):
