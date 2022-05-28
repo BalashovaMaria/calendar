@@ -49,17 +49,21 @@ def fill():
         days[week_day + month_days + n]['text'] = n+1
         days[week_day + month_days + n]['fg'] = 'gray'
         days[week_day + month_days + n]['background'] = '#f3f3f3'
+
+'''добавление нового окна после нажимания на дату'''        
 def new_win():
     newWindow = tk.Toplevel(root)
     newWindow.title('Medication Data')
     newWindow.iconphoto(False, photo)
     newWindow.geometry(f"300x400")
     interface(newWindow)
-
+    
+'''ячейки в новом окне'''
 def interface(y):
     addmed = tk.Button(y, text = 'Add medication', command= lambda: [addmd(), counter()])
     addmed.grid(row=0, column=4)
     def namefunc(rw1):
+    '''название лекарства'''
         pill_name = tk.Label(y, text='Name')
         pill_name.grid(row =rw1,column=0)
         pillname = tk.Entry(y)
@@ -67,6 +71,7 @@ def interface(y):
         dosagefunc(rw1+1)
 
     def dosagefunc(rw2):
+    '''дозировка'''
         pill_dosage = tk.Label(y, text='Dosage')
         pill_dosage.grid(row =rw2, column=0)
         pilldosage = tk.Entry(y)
@@ -74,6 +79,7 @@ def interface(y):
         time(rw2+1)
 
     def time(rw):
+    '''время принятия лекарств'''
         pill_time = tk.Label(y, text='Time')
         pill_time.grid(row=rw, column=0)
         pilltime = tk.Entry(y)
