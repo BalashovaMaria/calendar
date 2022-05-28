@@ -78,7 +78,7 @@ def interface(y):
         pill_dosage.grid(row =rw2, column=0)
         pilldosage = tk.Entry(y)
         pilldosage.grid(row=rw2, column=1)
-        time(rw2+1)
+        time(rw2+2)
 
     def time(rw):
     '''время принятия лекарств'''
