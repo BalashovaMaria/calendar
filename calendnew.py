@@ -4,8 +4,6 @@ import datetime
 import tkinter as tk
 root = tk.Tk()
 root.title('Medication calendar')
-photo = tk.PhotoImage(file ='pill.png')
-root.iconphoto(False, photo)
 days = []
 now = datetime.datetime.now()
 year = now.year
@@ -56,7 +54,6 @@ def new_win():
     '''добавление нового окна после нажимания на дату'''   
     newWindow = tk.Toplevel(root)
     newWindow.title('Medication Data')
-    newWindow.iconphoto(False, photo)
     newWindow.geometry(f"300x400")
     interface(newWindow)
     
