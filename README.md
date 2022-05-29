@@ -37,11 +37,9 @@
 >[final](https://github.com/BalashovaMaria/calendar/tree/main/final)
 ***
 Использованные модули
-ПЕРЕДЕЛАТЬ
-* matplotlib
+* os
 * sqlite3
 * tkinter
 * datetime
-* functools
 
 Работу выполняли: [Балашова Мария](https://github.com/BalashovaMaria), [Цобенко Дарья](https://github.com/dariatsobenko)
