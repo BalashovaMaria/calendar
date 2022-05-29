@@ -2,14 +2,18 @@ from tkinter import *
 import calendar
 import datetime
 import tkinter as tk
-import sqlite3
+import database
 root = tk.Tk()
 root.title('Medication calendar')
+photo = tk.PhotoImage(file ='pill.png')
+root.iconphoto(False, photo)
 days = []
 now = datetime.datetime.now()
 year = now.year
 month = now.month
 count = 2
+myBase = database.BaseHandler('records.db')
+day = -1
 
 def prew():
     global month, year
@@ -37,6 +41,7 @@ def fill():
     for n in range(month_days):
         days[n + week_day]['text'] = n+1
         days[n + week_day]['fg'] = 'black'
+        days[n + week_day].bind(f'<Button-1>', new_win)
         if year == now.year and month == now.month and n == now.day:
             days[n + week_day]['background'] = 'darkturquoise'
         else:
@@ -49,40 +54,61 @@ def fill():
         days[week_day + month_days + n]['text'] = n+1
         days[week_day + month_days + n]['fg'] = 'gray'
         days[week_day + month_days + n]['background'] = '#f3f3f3'
-def new_win():
+def new_win(event):
     newWindow = tk.Toplevel(root)
     newWindow.title('Medication Data')
+    newWindow.iconphoto(False, photo)
     newWindow.geometry(f"300x400")
-    interface(newWindow)
+    interface(newWindow, int(event.widget.cget('text')))
 
-def interface(y):
+def interface(y, day):
+    global count
+    count = 2
     addmed = tk.Button(y, text = 'Add medication', command= lambda: [addmd(), counter()])
     addmed.grid(row=0, column=4)
-    savebuttn = tk.Button(y, text = 'Save')
+    savebuttn = tk.Button(y, text = 'Save', command=lambda: add_r())
     savebuttn.grid(row=1, column=4)
+    date = f"{day}:{month}:{year}"
+    data = myBase.find(date)
+    name = []
+    dosage = []
+    t = []
+
+
+    def add_r():
+        myBase.delete(date)
+        for i in range(len(name)):
+            myBase.add_record(name[i].get(), dosage[i].get(), [t[i].get()], date)
+
     def namefunc(rw1):
         pill_name = tk.Label(y, text='Name')
         pill_name.grid(row =rw1,column=0)
-        pillname = tk.Entry(y)
+        tt = StringVar()
+        name.append(tt)
+        pillname = tk.Entry(y, textvariable=tt)
         pillname.grid(row=rw1, column=1)
         dosagefunc(rw1+1)
 
     def dosagefunc(rw2):
         pill_dosage = tk.Label(y, text='Dosage')
         pill_dosage.grid(row =rw2, column=0)
-        pilldosage = tk.Entry(y)
+        tt = StringVar()
+        dosage.append(tt)
+        pilldosage = tk.Entry(y, textvariable=tt)
         pilldosage.grid(row=rw2, column=1)
         time(rw2+2)
 
     def time(rw):
+        global c
         pill_time = tk.Label(y, text='Time')
         pill_time.grid(row=rw, column=0)
-        pilltime = tk.Entry(y)
+        tt = StringVar()
+        t.append(tt)
+        pilltime = tk.Entry(y, textvariable=tt)
         pilltime.grid(row=rw, column=1)
-        donebutton = Checkbutton(y)
+        donebutton = Checkbutton(y, command=(lambda: myBase.delete(date, tt.get())))
         donebutton.grid(row=rw, column=2)
-        plus = tk.Button(y, text='+', command=lambda: [plsfunction(), counter()])
-        plus.grid(row=rw, column=3)
+
 
     def counter():
         global count
@@ -92,9 +118,19 @@ def interface(y):
         time(count)
 
     def addmd():
-        namefunc(count)
+        namefunc(count-2)
         counter()
-    namefunc(0)
+
+    for i in range(len(data)):
+        addmd()
+        counter()
+        name[i].set(data[i][0])
+        dosage[i].set(data[i][1])
+        t[i].set(data[i][2])
+
+
+
+
 
 prew_button = Button(root, text = '<', command = prew)
 prew_button.grid(row=0, column=0, sticky='nsew')
@@ -111,8 +147,8 @@ for n in range(7):
 for row in range(6):
     for col in range(7):
         lbl = tk.Button(root, text='0', width=4, height=2,
-                    font=('ATC Maple', 16, 'bold'),
-                        command = new_win)
+                    font=('ATC Maple', 16, 'bold'))
+
         lbl.grid(row=row+2, column=col, sticky='nsew')
         days.append(lbl)
 fill()
