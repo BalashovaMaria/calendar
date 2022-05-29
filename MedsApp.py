@@ -2,7 +2,7 @@ from tkinter import *
 import calendar
 import datetime
 import tkinter as tk
-import json
+import sqlite3
 root = tk.Tk()
 root.title('Medication calendar')
 photo = tk.PhotoImage(file ='pill.png')
@@ -57,7 +57,48 @@ def new_win():
     newWindow.iconphoto(False, photo)
     newWindow.geometry(f"300x400")
     interface(newWindow)
-    
+
+def interface(y):
+    addmed = tk.Button(y, text = 'Add medication', command= lambda: [addmd(), counter()])
+    addmed.grid(row=0, column=4)
+    savebuttn = tk.Button(y, text = 'Save')
+    savebuttn.grid(row=1, column=4)
+    def namefunc(rw1):
+        pill_name = tk.Label(y, text='Name')
+        pill_name.grid(row =rw1,column=0)
+        pillname = tk.Entry(y)
+        pillname.grid(row=rw1, column=1)
+        dosagefunc(rw1+1)
+
+    def dosagefunc(rw2):
+        pill_dosage = tk.Label(y, text='Dosage')
+        pill_dosage.grid(row =rw2, column=0)
+        pilldosage = tk.Entry(y)
+        pilldosage.grid(row=rw2, column=1)
+        time(rw2+2)
+
+    def time(rw):
+        pill_time = tk.Label(y, text='Time')
+        pill_time.grid(row=rw, column=0)
+        pilltime = tk.Entry(y)
+        pilltime.grid(row=rw, column=1)
+        donebutton = Checkbutton(y)
+        donebutton.grid(row=rw, column=2)
+        plus = tk.Button(y, text='+', command=lambda: [plsfunction(), counter()])
+        plus.grid(row=rw, column=3)
+
+    def counter():
+        global count
+        count +=2
+
+    def plsfunction():
+        time(count)
+
+    def addmd():
+        namefunc(count)
+        counter()
+    namefunc(0)
+
 prew_button = Button(root, text = '<', command = prew)
 prew_button.grid(row=0, column=0, sticky='nsew')
 next_button = Button(root, text='>', command=next)
@@ -78,54 +119,4 @@ for row in range(6):
         lbl.grid(row=row+2, column=col, sticky='nsew')
         days.append(lbl)
 fill()
-def interface(y):
-    addmed = tk.Button(y, text = 'Add medication', command= lambda: [addmd(), counter()])
-    addmed.grid(row=0, column=4)
-    savebuttn = tk.Button(y, text = 'Save')
-    savebuttn.grid(row=1, column=4)
-
-    def namefunc(rw1):
-        pill_name = tk.Label(y, text='Name')
-        pill_name.grid(row =rw1,column=0)
-        pillname = tk.Entry(y)
-        pillname.grid(row=rw1, column=1)
-        save(pillname)
-        dosagefunc(rw1+1)
-
-    def dosagefunc(rw2):
-        pill_dosage = tk.Label(y, text='Dosage')
-        pill_dosage.grid(row =rw2, column=0)
-        pilldosage = tk.Entry(y)
-        pilldosage.grid(row=rw2, column=1)
-        save(pilldosage)
-        time(rw2+2)
-
-    def time(rw):
-        pill_time = tk.Label(y, text='Time')
-        pill_time.grid(row=rw, column=0)
-        pilltime = tk.Entry(y)
-        pilltime.grid(row=rw, column=1)
-        donebutton = Checkbutton(y)
-        donebutton.grid(row=rw, column=2)
-        plus = tk.Button(y, text='+', command=lambda: [plsfunction(), counter()])
-        plus.grid(row=rw, column=3)
-        save(pilltime)
-
-    def counter():
-        global count
-        count +=2
-
-    def plsfunction():
-        time(count)
-
-    def addmd():
-        namefunc(count)
-        counter()
-
-    def save(n):
-        getbuttn = n.get()
-        with open('medsdb.json','w') as f:
-            json.dump(getbuttn,f, indent=4)
-
-    namefunc(0)
 root.mainloop()
