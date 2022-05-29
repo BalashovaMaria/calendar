@@ -30,7 +30,9 @@ def next():
         month = 1
         year += 1
     fill()
+    
 def fill():
+    '''перерисовывает календарь.Она будет вызываться в начале работы программы и каждый раз после изменения месяца, для которого нужно вывести календарь.'''
     info_label['text'] = calendar.month_name[month] + ', ' + str(year)
     month_days = calendar.monthrange(year, month)[1]
     if month == 1:
@@ -54,7 +56,9 @@ def fill():
         days[week_day + month_days + n]['text'] = n+1
         days[week_day + month_days + n]['fg'] = 'gray'
         days[week_day + month_days + n]['background'] = '#f3f3f3'
+        
 def new_win(event):
+    '''Появление нового окна после нажатия на календаре даты'''
     newWindow = tk.Toplevel(root)
     newWindow.title('Medication Data')
     newWindow.iconphoto(False, photo)
@@ -62,6 +66,7 @@ def new_win(event):
     interface(newWindow, int(event.widget.cget('text')))
 
 def interface(y, day):
+    '''Интерфейс нового окна'''
     global count
     count = 2
     addmed = tk.Button(y, text = 'Add medication', command= lambda: [addmd(), counter()])
@@ -73,7 +78,6 @@ def interface(y, day):
     name = []
     dosage = []
     t = []
-
 
     def add_r():
         myBase.delete(date)
@@ -108,7 +112,6 @@ def interface(y, day):
         pilltime.grid(row=rw, column=1)
         donebutton = Checkbutton(y, command=(lambda: myBase.delete(date, tt.get())))
         donebutton.grid(row=rw, column=2)
-
 
     def counter():
         global count
