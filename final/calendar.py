@@ -15,7 +15,9 @@ count = 2
 myBase = database.BaseHandler('records.db')
 day = -1
 
+# Функции для создания календаря в главном окне
 def prew():
+    # Создание кнопки для переключения на предыдущий месяц
     global month, year
     month -= 1
     if month == 0:
@@ -24,6 +26,7 @@ def prew():
     fill()
 
 def next():
+    # Создание кнопки для переключения на следующий месяц
     global month, year
     month += 1
     if month == 13:
@@ -32,7 +35,7 @@ def next():
     fill()
     
 def fill():
-    '''перерисовывает календарь.Она будет вызываться в начале работы программы и каждый раз после изменения месяца, для которого нужно вывести календарь.'''
+    # Перерисовывает календарь. Она будет вызываться в начале работы программы и каждый раз после изменения месяца, для которого нужно вывести календарь
     info_label['text'] = calendar.month_name[month] + ', ' + str(year)
     month_days = calendar.monthrange(year, month)[1]
     if month == 1:
@@ -58,7 +61,7 @@ def fill():
         days[week_day + month_days + n]['background'] = '#f3f3f3'
         
 def new_win(event):
-    '''Появление нового окна после нажатия на календаре даты'''
+    # Появление дочернего окна после нажатия на календаре даты
     newWindow = tk.Toplevel(root)
     newWindow.title('Medication Data')
     newWindow.iconphoto(False, photo)
@@ -66,7 +69,7 @@ def new_win(event):
     interface(newWindow, int(event.widget.cget('text')))
 
 def interface(y, day):
-    '''Интерфейс нового окна'''
+    # Интерфейс дочернего окна
     global count
     count = 2
     addmed = tk.Button(y, text = 'Add medication', command= lambda: [addmd(), counter()])
@@ -80,11 +83,13 @@ def interface(y, day):
     t = []
 
     def add_r():
+        # Добавление введенных пользователем данных в базу данных
         myBase.delete(date)
         for i in range(len(name)):
             myBase.add_record(name[i].get(), dosage[i].get(), [t[i].get()], date)
 
     def namefunc(rw1):
+        # Функция для добавления лейбла 'Name' и строки ввода для 'Name'
         pill_name = tk.Label(y, text='Name')
         pill_name.grid(row =rw1,column=0)
         tt = StringVar()
@@ -94,6 +99,7 @@ def interface(y, day):
         dosagefunc(rw1+1)
 
     def dosagefunc(rw2):
+        # Функция для добавления лейбла 'Dosage' и строки ввода для 'Dosage'
         pill_dosage = tk.Label(y, text='Dosage')
         pill_dosage.grid(row =rw2, column=0)
         tt = StringVar()
@@ -103,6 +109,7 @@ def interface(y, day):
         time(rw2+2)
 
     def time(rw):
+        # Функция для добавления лейбла 'Time', строки ввода для 'Time' и флажка, который может находиться в отмеченном и неотмеченном состоянии
         global c
         pill_time = tk.Label(y, text='Time')
         pill_time.grid(row=rw, column=0)
@@ -114,17 +121,17 @@ def interface(y, day):
         donebutton.grid(row=rw, column=2)
 
     def counter():
+        # Функция подсчета нажатий для кнопки, для того, чтобы лейблы со строками ввода распределялись равномерно в дочернем окне
         global count
         count +=2
 
-    def plsfunction():
-        time(count)
-
     def addmd():
+        # Функция для работы кнопки 'Add medication'
         namefunc(count-2)
         counter()
 
     for i in range(len(data)):
+        # Добавление введенных данных в базу данных
         addmd()
         counter()
         name[i].set(data[i][0])
@@ -143,6 +150,7 @@ info_label = Label(root, text='0', width=1, height=1,
             font=('ATC Maple', 16, 'bold'), fg='blue')
 info_label.grid(row=0, column=1, columnspan=5, sticky='nsew')
 
+# Заполнение календаря в главном окне:
 for n in range(7):
     lbl = tk.Label(root, text=calendar.day_abbr[n], width=1, height=1,
                 font=('ATC Maple', 10, 'normal'), fg='darkblue')
