@@ -35,6 +35,7 @@ class BaseHandler:
         return self._cur.fetchall()
 
     def delete(self, date, time=None):
+        # С помощью 'курсора' производится напрос, который удаляет записи по заданным критериям 
         if time:
             self._cur.execute(f"DELETE FROM RECORDS WHERE date = '{date}' AND time = '{time}';")
         else:
