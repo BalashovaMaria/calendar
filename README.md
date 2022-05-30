@@ -18,7 +18,8 @@
 
 Интерфейс календарь выглядит так:
 
-![image](https://user-images.githubusercontent.com/99802613/170893064-3143c0ee-9ac9-4a1b-bc13-467ba057d1da.png)
+[![image](https://user-images.githubusercontent.com/99802613/170893064-3143c0ee-9ac9-4a1b-bc13-467ba057d1da.png)
+](https://sun9-30.userapi.com/s/v1/if2/qvF4TCmf4Df4ZLRn0FwAsEWHCQQDtiXz4Urq4JXfbAjHhtS416Cs055KmPT4e7omCDj8g-vYOb0kOwnQxx8qOBJ9.jpg?size=543x597&quality=96&type=album)
 
 Дочернее окно,которое появляется после нажатия на дату в календаре:
 
