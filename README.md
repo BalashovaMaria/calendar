@@ -22,11 +22,11 @@
 
 Дочернее окно,которое появляется после нажатия на дату в календаре:
 
-![image](https://user-images.githubusercontent.com/99802613/170893095-61920ca8-bc11-4d8f-b026-7451477aa59a.png)
+![image](https://user-images.githubusercontent.com/99802613/170976487-689a987f-3527-482f-b6fa-73cf13da836d.png)
 
 Дочернее окно после нажатия на кнопку добавления лекарства:
 
-![image](https://user-images.githubusercontent.com/99802613/170894232-e72fe1bb-19f6-4ea1-a127-68e549e801eb.png)
+![image](https://user-images.githubusercontent.com/99802613/170976548-de1e9a6d-4e1c-4d5f-a70a-2c9661d2d115.png)
 
 >В этом окне расположены поля для ввода данных такие как название лекарства ,дозировка ,время принятия лекарства.Также есть флажок(Checkbutton) который может находиться в двух состояниях: отмеченном и неотмеченном.
 
