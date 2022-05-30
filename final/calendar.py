@@ -48,8 +48,10 @@ def fill():
         days[n + week_day]['fg'] = 'black'
         days[n + week_day].bind(f'<Button-1>', new_win)
         if year == now.year and month == now.month and n == now.day:
+            # Если дата сегодняшняя, ячейка будет выделена цветом 'darkturquoise' (оттенок голубого)
             days[n + week_day]['background'] = 'darkturquoise'
         else:
+            # Все остальные ячейки с датами выделены цветом 'lightgray' (светло-серый)
             days[n + week_day]['background'] = 'lightgray'
     for n in range(week_day):
         days[week_day - n - 1]['text'] = prew_month_days - n
@@ -138,10 +140,7 @@ def interface(y, day):
         dosage[i].set(data[i][1])
         t[i].set(data[i][2])
 
-
-
-
-
+# Интерфейс в главном окне. Добавление кнопок для переключения на следующий и предыдущий месяцы
 prew_button = Button(root, text = '<', command = prew)
 prew_button.grid(row=0, column=0, sticky='nsew')
 next_button = Button(root, text='>', command=next)
