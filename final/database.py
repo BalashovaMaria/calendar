@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-
+# Класс для создания базы данных
 class BaseHandler:
     def __init__(self, path):
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
